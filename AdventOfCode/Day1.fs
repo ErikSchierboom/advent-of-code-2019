@@ -1,4 +1,4 @@
-module AdventOfCode.Data
+module AdventOfCode.Day1
 
 let masses =
     [ 145866
@@ -101,3 +101,19 @@ let masses =
       59997
       104865
       86457 ]
+
+let fuelRequired mass =
+    if mass <= 0 then 0
+    else mass / 3 - 2
+
+let fuelRequiredRecursively mass =
+    let rec helper total remainder =
+        let fuel = fuelRequired remainder
+        if fuel <= 0 then total
+        else helper (total + fuel) fuel
+
+    helper 0 mass
+
+let partOne = List.sumBy fuelRequired masses
+
+let partTwo = List.sumBy fuelRequiredRecursively masses

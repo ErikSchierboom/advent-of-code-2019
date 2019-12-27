@@ -31,15 +31,9 @@ let partTwo =
     let isValid password =
         let passwordDigits = digits password
         let hasAdjacentPair =
-            let rec loop remainder =
-                match remainder with
-                | [x; y; z] when x = y && y <> z -> true
-                | [x; y; z] when y = z && x <> y -> true
-                | [x; y] when x = y -> true
-                | _::xs -> loop xs
-                | _ -> false
-            
-            loop passwordDigits
+            List.countBy id passwordDigits
+            |> List.map fst
+            |> List.contains 2
         let digitsAreOrderedAscending =
             passwordDigits
             |> List.pairwise
